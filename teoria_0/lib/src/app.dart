@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teoria_0/src/pages/home.dart';
+import 'package:teoria_0/src/pages/counter.dart';
 
 // Widget sin estado
 class MyApp extends StatelessWidget {
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue
       ),
       home: Center(
-        child: Home(),
+        child: Counter(),
       ),
     );
   }
