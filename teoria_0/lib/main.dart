@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
               SizedBox(
                 height: 250.0,
                 width: 250.0,
-                child: Image.asset('assets/cat.jpg', fit: BoxFit.cover),
+                child: SvgPicture.asset("assets/wolf.svg"),
               ),
 
               SizedBox(
