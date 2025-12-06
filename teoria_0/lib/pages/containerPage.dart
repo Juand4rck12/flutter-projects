@@ -6,38 +6,24 @@ class ContainerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: TextStyle(fontSize: 25.0),
+      style: const TextStyle(fontSize: 25.0),
       child: Center(
         child: Container(
-
           width: 200.0,
           height: 200.0,
-          color: Colors.red,
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+            color: Colors.red,
+            // Radio total 
+            // borderRadius: BorderRadius.all(Radius.circular(25.0))
 
-          // Padding only, para especificar direcciones
-          padding: EdgeInsets.only(
-            top: 25.0,
-            bottom: 25.0,
-            right: 15.0,
-            left: 15.0
+            // Radio con opciones
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0)
+            )
           ),
-
-          // Padding all para mismo valor en todas las direcciones
-          // padding: EdgeInsets.all(25),
-
-          // Padding simetrico para especificar lados
-          // Verticales y horizontales
-          // padding: EdgeInsets.symmetric(
-          //   vertical: 10.0,
-          //   horizontal: 10.0
-          // ),
-
-          child: Container(
-            width: 200.0,
-            height: 200.0,
-            color: Colors.amber,
-            alignment: Alignment.center,
-            child: Text("Hola Flutter")),
+          child: const Text("Hola Flutter"),
         ),
       ),
     );
