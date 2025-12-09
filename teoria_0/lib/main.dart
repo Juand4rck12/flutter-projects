@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teoria_0/pages/containerPage.dart';
+import 'package:teoria_0/pages/listView.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Container",
-      home: ContainerPage(),
+      title: "ListView",
+      home: ListViewPage(),
     );
   }
 }
