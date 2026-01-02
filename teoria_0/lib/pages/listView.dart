@@ -15,13 +15,13 @@ class ListViewPageState extends State<ListViewPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("List View")),
       body: ListView.builder(
-        itemBuilder: (BuildContext context, index) => {
-          return Container(
+        itemCount: nombres.length,
+        itemBuilder: (BuildContext context, int index) {
+          // Se puede usar container o SizedBox
+          return SizedBox(
             height: 60.0,
-            child:  Center(
-              child: Text("Texto ${nombres[index]}"),
-            )
-          )
+            child: Center(child: Text("Texto ${nombres[index]}")),
+          );
         },
       ),
     );
