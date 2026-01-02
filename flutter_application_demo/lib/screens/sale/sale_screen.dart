@@ -150,7 +150,7 @@ class _SaleScreenState extends State<SaleScreen> {
                             return DataRow(
                               cells: [
                                 DataCell(Text("${sale.saleId}")),
-                                DataCell(Text("${sale.productId}")),
+                                DataCell(Text("${sale.productName}")),
                                 DataCell(Text("${sale.quantity}")),
                                 DataCell(
                                   Text(
