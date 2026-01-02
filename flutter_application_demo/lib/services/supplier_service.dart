@@ -29,7 +29,7 @@ class SupplierService {
     );
 
     if (response.statusCode != 201 && response.statusCode != 200) {
-      throw Exception("Error al crear");
+      throw Exception(response.body);
     }
   }
 
@@ -41,12 +41,12 @@ class SupplierService {
       body: jsonEncode(supplier.toJson(isUpdate: true)),
     );
 
-    if (response.statusCode != 200) throw Exception("Error al actualizar");
+    if (response.statusCode != 200) throw Exception(response.body);
   }
 
   // DELETE
   Future<void> deleteSupplier(int id) async {
     final response = await http.delete(Uri.parse("$baseUrl/delete/$id"));
-    if (response.statusCode != 200) throw Exception("Error al eliminar");
+    if (response.statusCode != 200) throw Exception(response.body);
   }
 }
