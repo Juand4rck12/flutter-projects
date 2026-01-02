@@ -30,34 +30,34 @@ class ProductModel {
       name: json["name"],
       description: json["description"],
       price: (json["price"] as num).toDouble(),
-      stockQuantity: json["stock_quantity"] ?? 0,
-      categoryId: json["category_id"],
-      supplierId: json["supplier_id"],
+      stockQuantity: json["stockQuantity"] ?? 0,
+      categoryId: json["category"]["id"],
+      supplierId: json["supplier"]["id"],
       createdAt: json["created_at"],
-      categoryName: json["category_name"],
-      supplierName: json["supplier_name"],
+      categoryName: json["category"]["name"],
+      supplierName: json["supplier"]["name"],
     );
   }
 
   Map<String, dynamic> toJson({bool isUpdate = false}) {
     if (isUpdate) {
       return {
-        'product_id': productId,
+        'product': productId,
         'name': name,
         'description': description,
         'price': price,
-        'stock_quantity': stockQuantity,
-        'category_id': categoryId,
-        'supplier_id': supplierId,
+        'stockQuantity': stockQuantity,
+        'category': {'id': categoryId},
+        'supplier': {'id': supplierId},
       };
     } else {
       return {
         'name': name,
         'description': description,
         'price': price,
-        'stock_quantity': stockQuantity,
-        'category_id': categoryId,
-        'supplier_id': supplierId,
+        'stockQuantity': stockQuantity,
+        'category': {'id': categoryId},
+        'supplier': {'id': supplierId},
       };
     }
   }

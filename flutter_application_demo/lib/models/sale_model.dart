@@ -19,27 +19,27 @@ class SaleModel {
   factory SaleModel.fromJson(Map<String, dynamic> json) {
     return SaleModel(
       saleId: json["id"],
-      productId: json["product_id"],
+      productId: json["product"]["id"],
       quantity: json["quantity"],
-      saleDate: json["sale_date"],
-      totalAmount: (json["total_amount"] as num).toDouble(),
-      productName: json["product_name"],
+      saleDate: json["saleDate"],
+      totalAmount: (json["totalAmount"] as num).toDouble(),
+      productName: json["product"]["name"],
     );
   }
 
   Map<String, dynamic> toJson({bool isUpdate = false}) {
     if (isUpdate) {
       return {
-        'sale_id': saleId,
-        'product_id': productId,
+        'sale': saleId,
+        'product': {'id': productId},
         'quantity': quantity,
-        'total_amount': totalAmount,
+        'totalAmount': totalAmount,
       };
     } else {
       return {
-        'product_id': productId,
+        'product': {'id': productId},
         'quantity': quantity,
-        'total_amount': totalAmount,
+        'totalAmount': totalAmount,
       };
     }
   }

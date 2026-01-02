@@ -17,8 +17,8 @@ class SupplierModel {
     return SupplierModel(
       supplierId: json["id"],
       name: json["name"],
-      contactEmail: json["contact_email"],
-      phoneNumber: json["phone_number"],
+      contactEmail: json["contactEmail"],
+      phoneNumber: json["phoneNumber"],
       address: json["address"],
     );
   }
@@ -28,15 +28,15 @@ class SupplierModel {
       return {
         'supplier_id': supplierId,
         'name': name,
-        'contact_email': contactEmail,
-        'phone_number': phoneNumber,
+        'contactEmail': contactEmail,
+        'phoneNumber': phoneNumber,
         'address': address,
       };
     } else {
       return {
         'name': name,
-        'contact_email': contactEmail,
-        'phone_number': phoneNumber,
+        'contactEmail': contactEmail,
+        'phoneNumber': phoneNumber,
         'address': address,
       };
     }
