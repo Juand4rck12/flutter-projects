@@ -32,12 +32,14 @@ class _CalcAppState extends State<CalcApp> {
   }
 
   void evaluate(String text) {
-    Parser parser = Parser();
+    ExpressionParser parser = GrammarParser();
     Expression exp = parser.parse(_expression);
     ContextModel cm = ContextModel();
+    var evaluator = RealEvaluator(cm);
+    num eval = evaluator.evaluate(exp);
     setState(() {
       _history = _expression;
-      _expression = exp.evaluate(EvaluationType.REAL, cm).toString();
+      _expression = eval.toString();
     });
   }
 
