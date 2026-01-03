@@ -1,3 +1,4 @@
+import 'package:calculadora_1/widgets/CalcButton.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,6 +14,9 @@ class CalcApp extends StatefulWidget {
 }
 
 class _CalcAppState extends State<CalcApp> {
+  void clearAll(String text) {
+    
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,7 +32,7 @@ class _CalcAppState extends State<CalcApp> {
               Container(
                 alignment: const Alignment(1.0, 1.0),
                 child: Padding(
-                  padding: const EdgeInsetsGeometry.only(right: 12.0),
+                  padding: const EdgeInsets.only(right: 12.0),
                   child: Text(
                     "Historial",
                     style: GoogleFonts.rubik(
@@ -43,7 +47,7 @@ class _CalcAppState extends State<CalcApp> {
               Container(
                 alignment: const Alignment(1.0, 1.0),
                 child: Padding(
-                  padding: const EdgeInsetsGeometry.all(12.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Text(
                     "+",
                     style: GoogleFonts.rubik(
@@ -54,6 +58,56 @@ class _CalcAppState extends State<CalcApp> {
                     ),
                   ),
                 ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                    Calcbutton(
+                      text: "AC",
+                      callback: clearAll,
+                      textSize: 15,
+                    ),
+                    Calcbutton(
+                      text: "⌫",
+                      callback: clearAll,
+                      textSize: 15,
+                    ),
+                    Calcbutton(
+                      text: "%",
+                      callback: clearAll,
+                      textSize: 15,
+                    ),
+                    Calcbutton(
+                      text: "/",
+                      callback: clearAll,
+                      textSize: 15,
+                    ),
+                  ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                    Calcbutton(
+                      text: "AC",
+                      callback: clearAll,
+                      textSize: 15,
+                    ),
+                    Calcbutton(
+                      text: "⌫",
+                      callback: clearAll,
+                      textSize: 15,
+                    ),
+                    Calcbutton(
+                      text: "%",
+                      callback: clearAll,
+                      textSize: 15,
+                    ),
+                    Calcbutton(
+                      text: "/",
+                      callback: clearAll,
+                      textSize: 15,
+                    ),
+                  ],
               ),
             ],
           ),
