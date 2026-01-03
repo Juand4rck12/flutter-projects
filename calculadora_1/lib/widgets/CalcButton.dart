@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Calcbutton extends StatelessWidget {
   final Function callback;
+  final int bgColor;
   final String text;
   final double textSize;
 
@@ -11,6 +12,7 @@ class Calcbutton extends StatelessWidget {
     required this.callback,
     required this.text,
     this.textSize = 28.0,
+    this.bgColor = 0xFF21252B,
   });
 
   @override
@@ -23,6 +25,7 @@ class Calcbutton extends StatelessWidget {
         child: TextButton(
           onPressed: () => {callback(text)},
           style: TextButton.styleFrom(
+            backgroundColor: Color(bgColor),
             foregroundColor: Colors.white,
             padding: const EdgeInsets.all(16.0),
             textStyle: const TextStyle(fontSize: 20),
