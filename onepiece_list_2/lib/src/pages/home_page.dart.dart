@@ -14,11 +14,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: Color.fromARGB(255, 16, 16, 16),
-      body: Column(
-        children: <Widget>[
-          HeaderWidget(),
-          CharactersList()
-        ],
+      body: Column(children: <Widget>[HeaderWidget(), CharactersList()]),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromARGB(255, 95, 25, 208),
+        onPressed: null,
+        child: Icon(Icons.add, color: Colors.white),
       ),
     );
   }
