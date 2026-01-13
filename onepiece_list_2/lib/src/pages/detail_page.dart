@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onepiece_list_2/src/animations/fade_animation.dart';
 import 'package:onepiece_list_2/src/widgets/blur_container.dart';
 import 'package:onepiece_list_2/src/widgets/info_title_widget.dart';
 
@@ -53,21 +54,24 @@ class _DetailPageState extends State<DetailPage> {
                 Positioned(
                   bottom: 10.0,
                   left: 10.0,
-                  child: BlurContainer(
-                    child: Container(
-                      width: 160.0,
-                      height: 50.0,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.white.withValues(alpha: 0.1),
-                      ),
-                      child: Text(
-                        widget.title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                          color: Colors.white,
+                  child: FadeAnimation(
+                    intervalEnd: 0.8,
+                    child: BlurContainer(
+                      child: Container(
+                        width: 160.0,
+                        height: 50.0,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.white.withValues(alpha: 0.1),
+                        ),
+                        child: Text(
+                          widget.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -78,19 +82,28 @@ class _DetailPageState extends State<DetailPage> {
             const SizedBox(height: 30.0),
             Padding(
               padding: const EdgeInsetsGeometry.symmetric(horizontal: 8.0),
-              child: Text(
-                "${widget.title} #Personaje",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
+              child: FadeAnimation(
+                intervalStart: 0.3,
+                child: Text(
+                  "${widget.title} #Personaje",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 5.0),
             const Padding(
               padding: EdgeInsetsGeometry.symmetric(horizontal: 8.0),
-              child: Text("One Piece", style: TextStyle(color: Colors.white70)),
+              child: FadeAnimation(
+                intervalStart: 0.25,
+                child: Text(
+                  "One Piece",
+                  style: TextStyle(color: Colors.white70),
+                ),
+              ),
             ),
             const SizedBox(height: 30.0),
             const Padding(
