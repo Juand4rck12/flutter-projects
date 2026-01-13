@@ -108,30 +108,39 @@ class _DetailPageState extends State<DetailPage> {
             const SizedBox(height: 30.0),
             const Padding(
               padding: EdgeInsetsGeometry.symmetric(horizontal: 12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InfoTitleWidget(title: "Eiichiro Oda", subtitle: "Creador"),
-                  InfoTitleWidget(title: "Japón", subtitle: "País"),
-                ],
+              child: FadeAnimation(
+                intervalStart: 0.4,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InfoTitleWidget(title: "Eiichiro Oda", subtitle: "Creador"),
+                    InfoTitleWidget(title: "Japón", subtitle: "País"),
+                  ],
+                ),
               ),
             ),
             const Spacer(),
-            Container(
-              width: double.infinity,
-              height: 50.0,
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(horizontal: 8.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Color(widget.color),
-              ),
-              child: const Text(
-                "Volver",
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
+            FadeAnimation(
+              intervalStart: 0.5,
+              child: GestureDetector(
+                onTap: () => {Navigator.pop(context)},
+                child: Container(
+                  width: double.infinity,
+                  height: 50.0,
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Color(widget.color),
+                  ),
+                  child: const Text(
+                    "Volver",
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
