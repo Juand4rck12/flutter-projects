@@ -12,6 +12,51 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late List pokedex = [];
+  Color? changeColor(int index) {
+    Color? setColor;
+    switch (pokedex[index]["type"][0]) {
+      case "Grass":
+        setColor = Colors.greenAccent;
+        break;
+      case "Fire":
+        setColor = Colors.redAccent;
+        break;
+      case "Water":
+        setColor = Colors.blue;
+        break;
+      case "Poison":
+        setColor = Colors.deepPurpleAccent;
+        break;
+      case "Electric":
+        setColor = Colors.amber;
+        break;
+      case "Rock":
+        setColor = Colors.grey;
+        break;
+      case "Ground":
+        setColor = Colors.brown;
+        break;
+      case "Psychic":
+        setColor = Colors.indigo;
+        break;
+      case "Fighting":
+        setColor = Colors.orange;
+        break;
+      case "Bug":
+        setColor = Colors.lightGreenAccent;
+        break;
+      case "Ghost":
+        setColor = Colors.deepPurple;
+        break;
+      case "Normal":
+        setColor = Colors.white12;
+        break;
+      default:
+        setColor = Colors.pink;
+    }
+    return setColor;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -72,6 +117,7 @@ class _HomePageState extends State<HomePage> {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
+                                  childAspectRatio: 3 / 5,
                                 ),
                             itemCount: pokedex.length,
                             itemBuilder: (context, index) {
@@ -98,12 +144,54 @@ class _HomePageState extends State<HomePage> {
                                           child: Stack(
                                             children: [
                                               Positioned(
+                                                top: 90.0,
+                                                left: 15.0,
                                                 child: Text(
                                                   pokedex[index]["num"],
                                                   style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 18.0,
                                                     color: Colors.black87,
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: 130.0,
+                                                left: 15.0,
+                                                child: Text(
+                                                  pokedex[index]["name"],
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18.0,
+                                                    color: Colors.white54,
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: 170.0,
+                                                left: 15.0,
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 10.0,
+                                                        vertical: 5.0,
+                                                      ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                          Radius.circular(20.0),
+                                                        ),
+                                                    color: Colors.black
+                                                        .withValues(alpha: 0.5),
+                                                  ),
+                                                  child: Text(
+                                                    pokedex[index]["type"][0],
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18.0,
+                                                      color: changeColor(index),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
