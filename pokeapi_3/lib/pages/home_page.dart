@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -99,9 +100,9 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 "Pokedex",
                 style: TextStyle(
-                  color: Colors.black12.withValues(alpha: 0.6),
+                  color: Colors.white70.withValues(alpha: 0.6),
                   fontWeight: FontWeight.bold,
-                  fontSize: 30.0,
+                  fontSize: 40.0,
                 ),
               ),
             ),
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
               width: screenWidth,
               child: Column(
                 children: [
-                  pokedex != null
+                  pokedex.isNotEmpty
                       ? Expanded(
                           child: GridView.builder(
                             gridDelegate:
@@ -151,7 +152,12 @@ class _HomePageState extends State<HomePage> {
                                                   style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 18.0,
-                                                    color: Colors.black87,
+                                                    color: Color.fromARGB(
+                                                      255,
+                                                      128,
+                                                      64,
+                                                      48,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -209,6 +215,14 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                               ),
                                             ],
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.topCenter,
+                                          child: CachedNetworkImage(
+                                            imageUrl: pokedex[index]["img"],
+                                            height: 180.0,
+                                            fit: BoxFit.fitHeight,
                                           ),
                                         ),
                                       ],
