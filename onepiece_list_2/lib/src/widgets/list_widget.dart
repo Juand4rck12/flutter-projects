@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onepiece_list_2/src/pages/detail_page.dart';
 
@@ -56,7 +57,7 @@ class _CharactersListState extends State<CharactersList> {
     return GestureDetector(
       onTap: () => {
         Navigator.of(context).push(
-          MaterialPageRoute(
+          CupertinoPageRoute(
             builder: ((context) => DetailPage(
               color: color,
               image: "assets/$image.png",
