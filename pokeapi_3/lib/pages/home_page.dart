@@ -12,8 +12,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late List pokedex = [];
-  Color? changeColor(int index) {
-    Color? setColor;
+  dynamic changeColor(int index) {
+    dynamic setColor;
     switch (pokedex[index]["type"][0]) {
       case "Grass":
         setColor = Colors.greenAccent;
@@ -191,6 +191,19 @@ class _HomePageState extends State<HomePage> {
                                                           FontWeight.bold,
                                                       fontSize: 18.0,
                                                       color: changeColor(index),
+                                                      shadows: [
+                                                        BoxShadow(
+                                                          color: changeColor(
+                                                            index,
+                                                          ),
+                                                          offset: const Offset(
+                                                            0,
+                                                            0,
+                                                          ),
+                                                          spreadRadius: 1.0,
+                                                          blurRadius: 15.0,
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
