@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="onepiece_list_2"
+        android:label="One Piece Demo APP"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
