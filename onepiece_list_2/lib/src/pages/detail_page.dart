@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onepiece_list_2/src/widgets/blur_container.dart';
 import 'package:onepiece_list_2/src/widgets/info_title_widget.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   const DetailPage({
     super.key,
     required this.color,
@@ -13,14 +13,24 @@ class DetailPage extends StatelessWidget {
   final int color;
   final String title;
   final String image;
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  double screenHeight = 0;
+
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(color), Colors.black],
+            colors: [Color(widget.color), Colors.black],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -32,7 +42,13 @@ class DetailPage extends StatelessWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.only(left: 12.0),
-                  child: SizedBox(height: 500.0, child: Image.asset(image)),
+                  child: SizedBox(
+                    height: screenHeight * 0.6,
+                    child: Hero(
+                      tag: widget.color,
+                      child: Image.asset(widget.image),
+                    ),
+                  ),
                 ),
                 Positioned(
                   bottom: 10.0,
@@ -47,7 +63,7 @@ class DetailPage extends StatelessWidget {
                         color: Colors.white.withValues(alpha: 0.1),
                       ),
                       child: Text(
-                        title,
+                        widget.title,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18.0,
@@ -63,7 +79,7 @@ class DetailPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsetsGeometry.symmetric(horizontal: 8.0),
               child: Text(
-                "$title #Personaje",
+                "${widget.title} #Personaje",
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 22.0,
@@ -95,7 +111,7 @@ class DetailPage extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 8.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                color: Color(color),
+                color: Color(widget.color),
               ),
               child: const Text(
                 "Volver",

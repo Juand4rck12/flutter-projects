@@ -93,7 +93,10 @@ class _CharactersListState extends State<CharactersList> {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   padding: const EdgeInsets.all(5.0),
-                  child: Image.asset("assets/$image.png"),
+                  child: Hero(
+                    tag: color,
+                    child: Image.asset("assets/$image.png"),
+                  ),
                 ),
                 const SizedBox(width: 12.0),
                 Text(
