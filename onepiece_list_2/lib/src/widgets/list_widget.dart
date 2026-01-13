@@ -55,9 +55,15 @@ class _CharactersListState extends State<CharactersList> {
   Widget charactersPageBlocks(String name, int color, String image) {
     return GestureDetector(
       onTap: () => {
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: ((context) => const DetailPage()))),
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: ((context) => DetailPage(
+              color: color,
+              image: "assets/$image.png",
+              title: name,
+            )),
+          ),
+        ),
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5.0),
