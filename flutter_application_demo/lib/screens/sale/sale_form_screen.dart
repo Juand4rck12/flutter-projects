@@ -54,9 +54,11 @@ class SaleFormScreenState extends State<SaleFormScreen> {
       setState(() {
         _isLoading = false;
       });
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Error al cargar productos: $e")));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error al cargar productos: $e")),
+        );
+      }
     }
   }
 
@@ -86,11 +88,13 @@ class SaleFormScreenState extends State<SaleFormScreen> {
         } else {
           await saleService.updateSale(newSale);
         }
-        Navigator.pop(context);
+        if (mounted) Navigator.pop(context);
       } catch (e) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("Error al guardar: $e")));
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text("Error al guardar: $e")));
+        }
       }
     }
   }

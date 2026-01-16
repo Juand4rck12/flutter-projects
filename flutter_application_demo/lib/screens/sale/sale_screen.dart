@@ -17,7 +17,7 @@ class _SaleScreenState extends State<SaleScreen> {
   @override
   void initState() {
     super.initState();
-    _loadSales();
+    if (mounted) _loadSales();
   }
 
   void _loadSales() {

@@ -17,7 +17,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     super.initState();
-    _loadCategories();
+    if (mounted) _loadCategories();
   }
 
   void _loadCategories() {
@@ -152,13 +152,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       // Botón Edit
                                       IconButton(
                                         onPressed: () => _goToForm(category),
-                                        icon: const Icon(Icons.edit, color: Colors.blue)
+                                        icon: const Icon(
+                                          Icons.edit,
+                                          color: Colors.blue,
+                                        ),
                                       ),
                                       const SizedBox(width: 8),
                                       // Botón Delete
                                       IconButton(
-                                        onPressed: () => _confirmDelete(category),
-                                        icon: const Icon(Icons.delete, color: Colors.red),
+                                        onPressed: () =>
+                                            _confirmDelete(category),
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        ),
                                       ),
                                     ],
                                   ),

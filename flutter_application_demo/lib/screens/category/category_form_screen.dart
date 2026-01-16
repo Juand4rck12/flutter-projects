@@ -46,11 +46,13 @@ class CategoryFormScreenState extends State<CategoryFormScreen> {
         } else {
           await categoryService.updateCategory(newCategory);
         }
-        Navigator.pop(context);
+        if (mounted) Navigator.pop(context);
       } catch (e) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("Error al guardar: $e")));
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text("Error al guardar: $e")));
+        }
       }
     }
   }

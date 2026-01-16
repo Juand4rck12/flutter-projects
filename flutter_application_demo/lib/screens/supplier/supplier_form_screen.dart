@@ -64,11 +64,13 @@ class SupplierFormScreenState extends State<SupplierFormScreen> {
         } else {
           await supplierService.updateSupplier(newSupplier);
         }
-        Navigator.pop(context);
+        if (mounted) Navigator.pop(context);
       } catch (e) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("Error al guardar: $e")));
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text("Error al guardar: $e")));
+        }
       }
     }
   }
