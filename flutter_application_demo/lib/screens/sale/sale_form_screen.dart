@@ -114,7 +114,7 @@ class SaleFormScreenState extends State<SaleFormScreen> {
                 child: Column(
                   children: [
                     DropdownButtonFormField<int>(
-                      value: _selectedProductId,
+                      initialValue: _selectedProductId,
                       decoration: const InputDecoration(labelText: "Producto"),
                       items: _products.map((product) {
                         return DropdownMenuItem<int>(
