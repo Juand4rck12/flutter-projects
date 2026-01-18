@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NewsScreen extends StatelessWidget {
-  const NewsScreen({super.key});
+  final String title;
+  final String description;
+  const NewsScreen({super.key, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -10,35 +12,17 @@ class NewsScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // spacing: 20.0, // igual que usar el sizedBox()
           children: [
-            const Text(
-              "Bienvenido a la sección de noticias",
-              style: TextStyle(fontSize: 18.0),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text("Volver usando Pop"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (Navigator.canPop(context)) {
-                  Navigator.maybePop(context);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        "No hay pantallas previas para regresar",
-                      ),
-                    ),
-                  );
-                }
-              },
-              child: const Text("Volver usando maybePop"),
-            ),
+            const SizedBox(height: 20.0),
+            Text(description, style: const TextStyle(fontSize: 18.0)),
           ],
         ),
       ),
