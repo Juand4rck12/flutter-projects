@@ -17,6 +17,27 @@ class ListViewScreen extends StatelessWidget {
               Navigator.pushNamed(context, "/noticias");
             },
           ),
+          const SizedBox(height: 20.0),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("Volver usando Pop"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (Navigator.canPop(context)) {
+                Navigator.maybePop(context);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("No hay pantallas previas para regresar"),
+                  ),
+                );
+              }
+            },
+            child: const Text("Volver usando maybePop"),
+          ),
         ],
       ),
     );
