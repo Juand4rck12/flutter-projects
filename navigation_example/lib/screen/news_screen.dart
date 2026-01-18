@@ -10,9 +10,9 @@ class NewsScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, "/profile");
+            Navigator.pushReplacementNamed(context, "/profile");
           },
-          child: const Text("Ir a perfil"),
+          child: const Text("Ir a perfil y reemplazar noticias"),
         ),
       ),
     );
