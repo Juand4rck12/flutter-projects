@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:store_project/features/products/screens/product_list_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,9 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: "Fake Store",
-      home: ,
+      home: ProductListScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
