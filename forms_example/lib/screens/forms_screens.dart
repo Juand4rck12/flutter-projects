@@ -14,6 +14,8 @@ class _FormsScreensState extends State<FormsScreens> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
+  bool _acceptTerms = false;
+
   String? validateFields(String? value, String message) {
     if (value == null || value.isEmpty) {
       return message;
@@ -25,7 +27,7 @@ class _FormsScreensState extends State<FormsScreens> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Formulario")),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -55,7 +57,7 @@ class _FormsScreensState extends State<FormsScreens> {
                   if (value == null || value.isEmpty) {
                     return "Por favor ingrese su correo electronico";
                   }
-                  if (!RegExp(r'^[^@]+@[^@]+\. [^@]+').hasMatch(value)) {
+                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(value)) {
                     return "Por favor ingrese un correo valido";
                   }
                   return null;
@@ -85,6 +87,7 @@ class _FormsScreensState extends State<FormsScreens> {
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
+                maxLength: 10,
                 decoration: const InputDecoration(
                   labelText: "teléfono",
                   hintText: "Ingrese su teléfono",
@@ -103,13 +106,34 @@ class _FormsScreensState extends State<FormsScreens> {
                 },
               ),
               const SizedBox(height: 20.0),
+              // ----- Checkbox de condiciones -----
+              Row(
+                children: [
+                  Checkbox(
+                    value: _acceptTerms,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _acceptTerms = value ?? false;
+                      });
+                    },
+                  ),
+                  const Text("Acepto los terminos y condiciones"),
+                ],
+              ),
+              if (!_acceptTerms)
+                const Text(
+                  "Debes aceptar los terminos y condiciones",
+                  style: TextStyle(color: Colors.red),
+                ),
+              const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Formulario valido")),
-                    );
-                  }
+                  if (_formKey.currentState!.validate()) return;
+                  if (!_acceptTerms) return;
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Formulario valido")),
+                  );
                 },
                 child: const Text("Enviar"),
               ),
