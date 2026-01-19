@@ -9,17 +9,27 @@ class HomeScreenWidget extends StatefulWidget {
 
 class _HomeScreenWidgetState extends State<HomeScreenWidget> {
   // Controlador para el TextField
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+
   String? errorMessage;
 
-  void _validateInput() {
+  void validateEmail() {
     setState(() {
-      if (_controller.text.isEmpty) {
-        errorMessage = "Este campo no puede estar vacio";
+      String email = _emailController.text;
+      if (email.isEmpty) {
+        errorMessage = "El correo no puede estar vacio";
+      } else if (!isValidEmail(email)) {
+        errorMessage = "Ingrese un correo valido";
       } else {
         errorMessage = null;
       }
     });
+  }
+
+  bool isValidEmail(String email) {
+    String emailPattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+    RegExp regExp = RegExp(emailPattern);
+    return regExp.hasMatch(email);
   }
 
   @override
@@ -33,7 +43,7 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
           children: [
             const Text("Ingrese su nombre", style: TextStyle(fontSize: 18.0)),
             TextField(
-              controller: _controller,
+              controller: _emailController,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 labelText: "Nombre",
@@ -47,14 +57,9 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
             const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
-                _validateInput();
-                if (errorMessage == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Hola! ${_controller.text}!")),
-                  );
-                }
+                validateEmail();
               },
-              child: const Text("Mostrar nombre"),
+              child: const Text("Enviar correo"),
             ),
           ],
         ),
