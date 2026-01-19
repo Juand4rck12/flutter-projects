@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inputs_example/widgets/password_textfield.dart';
 
 class HomeScreenWidget extends StatefulWidget {
   const HomeScreenWidget({super.key});
@@ -55,11 +56,11 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
               },
             ),
             const SizedBox(height: 20.0),
+            const PasswordTextfield(),
+            const SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () {
-                validateEmail();
-              },
-              child: const Text("Enviar correo"),
+              onPressed: validateEmail,
+              child: const Text("Enviar"),
             ),
           ],
         ),
