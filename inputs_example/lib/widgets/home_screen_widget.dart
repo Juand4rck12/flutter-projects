@@ -11,8 +11,9 @@ class HomeScreenWidget extends StatefulWidget {
 class _HomeScreenWidgetState extends State<HomeScreenWidget> {
   // Controlador para el TextField
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+
+  bool isAccept = false;
 
   String? errorMessage;
 
@@ -44,7 +45,7 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Ingrese su nombre", style: TextStyle(fontSize: 18.0)),
+            const Text("Ingrese su email", style: TextStyle(fontSize: 18.0)),
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
@@ -58,19 +59,6 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
               },
             ),
             const SizedBox(height: 20.0),
-            const Text(
-              "Ingrese su apellido (maximo 10 caracteres)",
-              style: TextStyle(fontSize: 18.0),
-            ),
-            TextField(
-              controller: _nameController,
-              maxLength: 10,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Apellido",
-                hintText: "Ingrese su apellido",
-              ),
-            ),
             const PasswordTextfield(),
             const SizedBox(height: 20.0),
             const Text(
@@ -87,6 +75,20 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
               ),
             ),
             const SizedBox(height: 20.0),
+            Row(
+              children: [
+                Checkbox(
+                  value: isAccept,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      isAccept = value ?? false;
+                    });
+                  },
+                ),
+                const Text("Acepto terminos y condiciones"),
+              ],
+            ),
+            if (isAccept) const Text("Gracias por aceptar terminos"),
             ElevatedButton(
               onPressed: validateEmail,
               child: const Text("Enviar"),
