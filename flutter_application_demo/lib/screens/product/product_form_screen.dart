@@ -65,12 +65,14 @@ class ProductFormScreenState extends State<ProductFormScreen> {
         _isLoading = false;
       });
     } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Error al cargar datos: $e")));
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Error al cargar datos: $e")));
+      }
     }
   }
 
@@ -100,11 +102,13 @@ class ProductFormScreenState extends State<ProductFormScreen> {
         } else {
           await productService.updateProduct(newProduct);
         }
-        Navigator.pop(context);
+        if (mounted) Navigator.pop(context);
       } catch (e) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("Error al guardar: $e")));
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text("Error al guardar: $e")));
+        }
       }
     }
   }
@@ -166,7 +170,7 @@ class ProductFormScreenState extends State<ProductFormScreen> {
                       ),
                       const SizedBox(height: 16),
                       DropdownButtonFormField<int>(
-                        value: _selectedCategoryId,
+                        initialValue: _selectedCategoryId,
                         decoration: const InputDecoration(
                           labelText: "Categoría",
                         ),
@@ -190,7 +194,7 @@ class ProductFormScreenState extends State<ProductFormScreen> {
                       ),
                       const SizedBox(height: 16),
                       DropdownButtonFormField<int>(
-                        value: _selectedSupplierId,
+                        initialValue: _selectedSupplierId,
                         decoration: const InputDecoration(
                           labelText: "Proveedor",
                         ),

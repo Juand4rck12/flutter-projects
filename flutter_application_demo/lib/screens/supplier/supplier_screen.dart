@@ -17,7 +17,7 @@ class _SupplierScreenState extends State<SupplierScreen> {
   @override
   void initState() {
     super.initState();
-    _loadSuppliers();
+    if (mounted) _loadSuppliers();
   }
 
   void _loadSuppliers() {

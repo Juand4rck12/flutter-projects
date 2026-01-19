@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         "ventas": (BuildContext context) => const SaleScreen(),
         "home": (BuildContext context) => const HomePage(),
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }

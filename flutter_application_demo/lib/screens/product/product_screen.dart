@@ -17,7 +17,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   void initState() {
     super.initState();
-    _loadProducts();
+    if (mounted) _loadProducts();
   }
 
   void _loadProducts() {

@@ -33,7 +33,7 @@ class ProductModel {
       stockQuantity: json["stockQuantity"] ?? 0,
       categoryId: json["category"]["id"],
       supplierId: json["supplier"]["id"],
-      createdAt: json["created_at"],
+      createdAt: json["createdAt"],
       categoryName: json["category"]["name"],
       supplierName: json["supplier"]["name"],
     );
