@@ -11,6 +11,7 @@ class HomeScreenWidget extends StatefulWidget {
 class _HomeScreenWidgetState extends State<HomeScreenWidget> {
   // Controlador para el TextField
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
   String? errorMessage;
 
@@ -56,6 +57,19 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
               },
             ),
             const SizedBox(height: 20.0),
+            const Text(
+              "Ingrese su apellido (maximo 10 caracteres)",
+              style: TextStyle(fontSize: 18.0),
+            ),
+            TextField(
+              controller: _nameController,
+              maxLength: 10,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "Apellido",
+                hintText: "Ingrese su apellido",
+              ),
+            ),
             const PasswordTextfield(),
             const SizedBox(height: 20.0),
             ElevatedButton(
