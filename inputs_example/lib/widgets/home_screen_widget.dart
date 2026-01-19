@@ -10,6 +10,18 @@ class HomeScreenWidget extends StatefulWidget {
 class _HomeScreenWidgetState extends State<HomeScreenWidget> {
   // Controlador para el TextField
   final TextEditingController _controller = TextEditingController();
+  String? errorMessage;
+
+  void _validateInput() {
+    setState(() {
+      if (_controller.text.isEmpty) {
+        errorMessage = "Este campo no puede estar vacio";
+      } else {
+        errorMessage = null;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,10 +34,11 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
             const Text("Ingrese su nombre", style: TextStyle(fontSize: 18.0)),
             TextField(
               controller: _controller,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
                 labelText: "Nombre",
                 hintText: "Ingrese su nombre completo",
+                errorText: errorMessage,
               ),
               onChanged: (text) {
                 debugPrint("Texto ingresado: $text");
@@ -34,10 +47,12 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
             const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
-                debugPrint("Nombre completo: ${_controller.text}");
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Hola! ${_controller.text}!")),
-                );
+                _validateInput();
+                if (errorMessage == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Hola! ${_controller.text}!")),
+                  );
+                }
               },
               child: const Text("Mostrar nombre"),
             ),
