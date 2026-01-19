@@ -12,6 +12,7 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
   // Controlador para el TextField
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   String? errorMessage;
 
@@ -38,7 +39,7 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("TextField Input")),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,6 +72,20 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
               ),
             ),
             const PasswordTextfield(),
+            const SizedBox(height: 20.0),
+            const Text(
+              "Ingrese su número telefonico",
+              style: TextStyle(fontSize: 18.0),
+            ),
+            TextField(
+              controller: _phoneController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "Teléfono",
+                hintText: "Ingrese su número telefonico",
+              ),
+            ),
             const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: validateEmail,
