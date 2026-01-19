@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:forms_example/providers/form_providers.dart';
 import 'package:forms_example/widgets/email_field.dart';
 import 'package:forms_example/widgets/name_field.dart';
 import 'package:forms_example/widgets/password_field.dart';
 import 'package:forms_example/widgets/phone_field.dart';
 import 'package:forms_example/widgets/terms_checkbox.dart';
+import 'package:provider/provider.dart';
 
 class FormsScreens extends StatefulWidget {
   const FormsScreens({super.key});
@@ -13,13 +15,6 @@ class FormsScreens extends StatefulWidget {
 }
 
 class _FormsScreensState extends State<FormsScreens> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-
-  bool _acceptTerms = false;
 
   String? _selectedCountry;
 
@@ -34,12 +29,14 @@ class _FormsScreensState extends State<FormsScreens> {
 
   @override
   Widget build(BuildContext context) {
+    final formProvider = Provider.of<FormProvider>(context);
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(title: const Text("Formulario")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -66,27 +63,27 @@ class _FormsScreensState extends State<FormsScreens> {
               ),
 
               // ----- Campo de nombre -----
-              NameField(nameController: _nameController),
+              NameField(nameController: formProvider.nameController),
               const SizedBox(height: 20.0),
               // ----- Campo de email -----
-              EmailField(emailController: _emailController),
+              EmailField(emailController: formProvider.emailController),
               const SizedBox(height: 20.0),
               // ----- Campo de contraseña -----
-              PasswordField(passwordController: _passwordController),
+              PasswordField(passwordController: formProvider.passwordController),
               const SizedBox(height: 20.0),
               // ----- Campo de teléfono -----
-              PhoneField(phoneController: _phoneController),
+              PhoneField(phoneController: formProvider.phoneController),
               const SizedBox(height: 20.0),
               // ----- Checkbox de condiciones -----
               TermsCheckbox(
-                value: _acceptTerms,
+                value: formProvider.acceptTerms,
                 onChanged: (bool? value) {
                   setState(() {
-                    _acceptTerms = value ?? false;
+                    formProvider.toggleAcceptTerms(value ?? false);
                   });
                 },
               ),
-              if (!_acceptTerms)
+              if (!formProvider.acceptTerms)
                 const Text(
                   "Debes aceptar los terminos y condiciones",
                   style: TextStyle(color: Colors.red),
@@ -94,8 +91,8 @@ class _FormsScreensState extends State<FormsScreens> {
               const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) return;
-                  if (!_acceptTerms) return;
+                  if (!formProvider.validateForm(formKey)) return;
+                  if (!formProvider.acceptTerms) return;
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("Formulario valido")),
