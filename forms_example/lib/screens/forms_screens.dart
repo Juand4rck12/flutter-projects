@@ -9,6 +9,18 @@ class FormsScreens extends StatefulWidget {
 
 class _FormsScreensState extends State<FormsScreens> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+
+  String? validateFields(String? value, String message) {
+    if (value == null || value.isEmpty) {
+      return message;
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,14 +32,72 @@ class _FormsScreensState extends State<FormsScreens> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              // ----- Campo de nombre -----
               TextFormField(
+                controller: _nameController,
                 decoration: const InputDecoration(
                   labelText: "Nombre",
                   hintText: "Ingrese su nombre",
                 ),
+                validator: (value) =>
+                    validateFields(value, "Por favor escriba su nombre"),
+              ),
+              const SizedBox(height: 20.0),
+              // ----- Campo de email -----
+              TextFormField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: "email",
+                  hintText: "Ingrese su correo electronico",
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Por favor ingrese su nombre";
+                    return "Por favor ingrese su correo electronico";
+                  }
+                  if (!RegExp(r'^[^@]+@[^@]+\. [^@]+').hasMatch(value)) {
+                    return "Por favor ingrese un correo valido";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20.0),
+              // ----- Campo de contraseña -----
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: "Contraseña",
+                  hintText: "Ingrese su contraseña",
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Por favor ingrese su contraseña";
+                  }
+                  if (value.length < 6) {
+                    return "Por favor ingrese una contraseña con más de 6 caracteres";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20.0),
+              // ----- Campo de teléfono -----
+              TextFormField(
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(
+                  labelText: "teléfono",
+                  hintText: "Ingrese su teléfono",
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Por favor ingrese su correo electronico";
+                  }
+                  if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                    return "Por favor ingrese un teléfono valido";
+                  }
+                  if (value.length != 10) {
+                    return "El número debe tener 10 digitos";
                   }
                   return null;
                 },
