@@ -16,6 +16,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   final ProductRepository _repository = ProductRepository();
   List<Product> _products = [];
   bool _isLoading = true;
+  int productCounter = 0;
 
   @override
   void initState() {
@@ -47,21 +48,34 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Listado de productos",
-          style: TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-            // color: Colors.blueGrey,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              "Listado de productos",
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            ),
+            Stack(
+              alignment: Alignment.topRight,
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.shopping_cart, size: 40.0),
+                ),
+                Text("$productCounter"),
+              ],
+            ),
+          ],
         ),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-                childAspectRatio: 4 / 5,
+                crossAxisCount: 4,
+                childAspectRatio: 0.90,
+                crossAxisSpacing: 16.0,
+                mainAxisSpacing: 16.0,
               ),
               itemCount: _products.length,
               itemBuilder: (context, index) {
