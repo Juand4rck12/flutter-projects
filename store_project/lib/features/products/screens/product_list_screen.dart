@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:store_project/features/products/models/product_model.dart';
 import 'package:store_project/features/products/providers/cart_provider.dart';
 import 'package:store_project/features/products/repositories/product_repository.dart';
+import 'package:store_project/features/products/screens/shopping_cart_screen.dart';
 import 'package:store_project/features/products/widgets/cart_container.dart';
 import 'package:store_project/features/products/widgets/product_view_widget.dart';
 
@@ -14,6 +15,7 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double screenHeight = 0;
   double screenWidth = 0;
   final ProductRepository _repository = ProductRepository();
@@ -45,35 +47,37 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    screenHeight = MediaQuery.of(context).size.height;
-    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.sizeOf(context).height;
+    screenWidth = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              "Listado de productos",
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            ),
-            Stack(
-              alignment: Alignment.topRight,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.shopping_cart, size: 40.0),
-                ),
-                Consumer<CartProvider>(
-                  builder: (context, cart, child) {
-                    return CartContainer(cart: cart);
-                  },
-                ),
-              ],
-            ),
-          ],
+        title: const Text(
+          "Listado de productos",
+          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          Stack(
+            alignment: Alignment.topRight,
+            children: [
+              IconButton(
+                onPressed: () {
+                  _scaffoldKey.currentState?.openEndDrawer();
+                },
+                icon: const Icon(Icons.shopping_cart, size: 40.0),
+              ),
+              Consumer<CartProvider>(
+                builder: (context, cart, child) {
+                  return CartContainer(cart: cart);
+                },
+              ),
+            ],
+          ),
+          const SizedBox(width: 16.0),
+        ],
       ),
+      endDrawer: const ShoppingCartScreen(),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : GridView.builder(
