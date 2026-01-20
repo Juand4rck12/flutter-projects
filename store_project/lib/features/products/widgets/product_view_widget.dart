@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:store_project/features/products/models/product_model.dart';
+import 'package:store_project/features/products/providers/cart_provider.dart';
 import 'package:store_project/features/products/widgets/image_container.dart';
 
 class ProductViewWidget extends StatelessWidget {
@@ -84,7 +86,10 @@ class ProductViewWidget extends StatelessWidget {
                       radius: 20.0,
                       backgroundColor: Colors.teal,
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          // Lee el provider y agrega el producto
+                          context.read<CartProvider>().addProduct(product);
+                        },
                         icon: const Icon(
                           Icons.add,
                           color: Colors.white,

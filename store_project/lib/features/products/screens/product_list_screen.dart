@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:store_project/features/products/models/product_model.dart';
+import 'package:store_project/features/products/providers/cart_provider.dart';
 import 'package:store_project/features/products/repositories/product_repository.dart';
+import 'package:store_project/features/products/widgets/cart_container.dart';
 import 'package:store_project/features/products/widgets/product_view_widget.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -16,7 +19,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
   final ProductRepository _repository = ProductRepository();
   List<Product> _products = [];
   bool _isLoading = true;
-  int productCounter = 0;
 
   @override
   void initState() {
@@ -62,7 +64,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   onPressed: () {},
                   icon: const Icon(Icons.shopping_cart, size: 40.0),
                 ),
-                Text("$productCounter"),
+                Consumer<CartProvider>(
+                  builder: (context, cart, child) {
+                    return CartContainer(cart: cart);
+                  },
+                ),
               ],
             ),
           ],
