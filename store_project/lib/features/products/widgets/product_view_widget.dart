@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:store_project/features/products/models/product_model.dart';
 import 'package:store_project/features/products/providers/cart_provider.dart';
@@ -18,6 +19,12 @@ class ProductViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var formatterCurrency = NumberFormat.currency(
+      locale: 'es_CO',
+      name: "",
+      decimalDigits: 0,
+    );
+
     return Card(
       // Card da elevacion y bordes redondeados
       elevation: 2,
@@ -68,7 +75,7 @@ class ProductViewWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "\$${product.price.round()}",
+                          "\$${formatterCurrency.format(product.price)}",
                           style: const TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
