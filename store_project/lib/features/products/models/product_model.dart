@@ -17,22 +17,22 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json["id"],
-      title: json["title"],
-      price: json["price"].toDouble(),
-      description: json["description"],
-      images: List<String>.from(json["images"]),
-      categoryId: json["category"]["id"],
+      id: json['id'],
+      title: json['title'],
+      price: (json['price'] as num).toDouble(),
+      description: json['description'],
+      images: List<String>.from(json['images'] ?? []),
+      categoryId: json['category'] != null ? json['category']['id'] : 0,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "title": title,
-      "price": price,
-      "description": description,
-      "images": images,
-      "categoryId": categoryId,
+      'title': title,
+      'price': price,
+      'description': description,
+      'images': images,
+      'categoryId': categoryId,
     };
   }
 }
