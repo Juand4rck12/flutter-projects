@@ -58,19 +58,29 @@ class _ProductListScreenState extends State<ProductListScreen> {
           style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
         actions: [
-          Stack(
-            alignment: Alignment.topRight,
-            children: [
+          Row(
+            children: <Widget>[
               IconButton(
                 onPressed: () {
-                  _scaffoldKey.currentState?.openEndDrawer();
+                  Navigator.pushNamed(context, "/admin-login");
                 },
-                icon: const Icon(Icons.shopping_cart, size: 40.0),
+                icon: const Icon(Icons.account_circle_rounded, size: 40.0),
               ),
-              Consumer<CartProvider>(
-                builder: (context, cart, child) {
-                  return CartContainer(cart: cart);
-                },
+              Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      _scaffoldKey.currentState?.openEndDrawer();
+                    },
+                    icon: const Icon(Icons.shopping_cart, size: 40.0),
+                  ),
+                  Consumer<CartProvider>(
+                    builder: (context, cart, child) {
+                      return CartContainer(cart: cart);
+                    },
+                  ),
+                ],
               ),
             ],
           ),

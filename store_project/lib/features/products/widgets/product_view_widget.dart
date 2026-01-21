@@ -87,6 +87,19 @@ class ProductViewWidget extends StatelessWidget {
                       backgroundColor: Colors.teal,
                       child: IconButton(
                         onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: Colors.teal,
+                              content: Text(
+                                "Articulo añadido exitosamente!",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          );
                           // Lee el provider y agrega el producto
                           context.read<CartProvider>().addProduct(product);
                         },
