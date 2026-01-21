@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store_project/features/products/models/product_model.dart';
 import 'package:store_project/features/products/providers/cart_provider.dart';
+import 'package:store_project/features/products/widgets/custom_snackbar_alert.dart';
 import 'package:store_project/features/products/widgets/image_container.dart';
 
 class ProductViewWidget extends StatelessWidget {
@@ -87,18 +88,9 @@ class ProductViewWidget extends StatelessWidget {
                       backgroundColor: Colors.teal,
                       child: IconButton(
                         onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              backgroundColor: Colors.teal,
-                              content: Text(
-                                "Articulo añadido exitosamente!",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
+                          showCustomSnackBar(
+                            context,
+                            message: "Articulo añadido exitosamente!",
                           );
                           // Lee el provider y agrega el producto
                           context.read<CartProvider>().addProduct(product);

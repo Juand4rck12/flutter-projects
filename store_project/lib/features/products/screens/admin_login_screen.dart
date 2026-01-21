@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store_project/features/products/providers/login_form_provider.dart';
+import 'package:store_project/features/products/widgets/custom_snackbar_alert.dart';
 
 class AdminLoginScreen extends StatefulWidget {
   const AdminLoginScreen({super.key});
@@ -99,18 +100,10 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         if (!formProvider.validateForm(formKey)) return;
                         formProvider.validateCredentials();
                         if (formProvider.errorMessage != null) return;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            backgroundColor: Colors.teal,
-                            content: Text(
-                              "Acceso concedido!",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
+                        showCustomSnackBar(
+                          context,
+                          duration: const Duration(milliseconds: 600),
+                          message: "Acceso concedido!",
                         );
                       },
                       child: const Padding(
