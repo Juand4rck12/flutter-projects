@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store_project/features/products/providers/cart_provider.dart';
 import 'package:store_project/features/products/widgets/cart/shopping_cart_products.dart';
+import 'package:store_project/features/products/widgets/cart/thanks_dialog.dart';
+import 'package:store_project/features/products/widgets/custom_snackbar_alert.dart';
 
 class ShoppingCartScreen extends StatelessWidget {
   const ShoppingCartScreen({super.key});
@@ -82,14 +84,15 @@ class ShoppingCartScreen extends StatelessWidget {
                       const SizedBox(height: 12.0),
                       SizedBox(
                         width: double.infinity,
-                        // TODO: Implementar proceso de compra
                         child: ElevatedButton(
                           onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Gracias por tu compra"),
-                              ),
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const ThanksDialog();
+                              },
                             );
+                            cart.clearCart();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.teal,
