@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:store_project/features/products/providers/cart_provider.dart';
 import 'package:store_project/features/products/widgets/cart/shopping_cart_products.dart';
 import 'package:store_project/features/products/widgets/cart/thanks_dialog.dart';
-import 'package:store_project/features/products/widgets/custom_snackbar_alert.dart';
 
 class ShoppingCartScreen extends StatelessWidget {
   const ShoppingCartScreen({super.key});

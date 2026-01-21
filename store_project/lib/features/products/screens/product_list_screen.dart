@@ -6,6 +6,7 @@ import 'package:store_project/features/products/repositories/product_repository.
 import 'package:store_project/features/products/screens/shopping_cart_screen.dart';
 import 'package:store_project/features/products/widgets/cart_container.dart';
 import 'package:store_project/features/products/widgets/product_view_widget.dart';
+import 'package:store_project/features/products/widgets/main_view_paginator.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -21,6 +22,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
   final ProductRepository _repository = ProductRepository();
   List<Product> _products = [];
   bool _isLoading = true;
+  int currentPage = 1;
+  int pageSize = 12;
+  int totalPages = 1;
 
   @override
   void initState() {
@@ -30,9 +34,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   Future<void> _loadProducts() async {
     try {
-      final products = await _repository.getProducts();
+      final response = await _repository.getPaginatedProducts(
+        currentPage,
+        pageSize,
+      );
       setState(() {
-        _products = products;
+        _products = response.products;
+        totalPages = response.pagination.pageCount;
         _isLoading = false;
       });
     } catch (e) {
@@ -90,22 +98,40 @@ class _ProductListScreenState extends State<ProductListScreen> {
       endDrawer: const ShoppingCartScreen(),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                childAspectRatio: 0.90,
-                crossAxisSpacing: 16.0,
-                mainAxisSpacing: 16.0,
-              ),
-              itemCount: _products.length,
-              itemBuilder: (context, index) {
-                final product = _products[index];
-                return ProductViewWidget(
-                  product: product,
-                  screenWidth: screenWidth,
-                  screenHeight: screenHeight,
-                );
-              },
+          : Column(
+              children: [
+                Expanded(
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          childAspectRatio: 0.90,
+                          crossAxisSpacing: 16.0,
+                          mainAxisSpacing: 16.0,
+                        ),
+                    itemCount: _products.length,
+                    itemBuilder: (context, index) {
+                      final product = _products[index];
+                      return ProductViewWidget(
+                        product: product,
+                        screenWidth: screenWidth,
+                        screenHeight: screenHeight,
+                      );
+                    },
+                  ),
+                ),
+                const Divider(height: 1.0, thickness: 2.0),
+                MainViewPaginator(
+                  currentPage: currentPage,
+                  totalPages: totalPages,
+                  onPageChanged: (page) {
+                    setState(() {
+                      currentPage = page;
+                      _loadProducts();
+                    });
+                  },
+                ),
+              ],
             ),
     );
   }
