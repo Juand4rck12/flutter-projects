@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:store_project/features/products/models/product_model.dart';
 import 'package:store_project/features/products/providers/cart_provider.dart';
-import 'package:store_project/features/products/widgets/custom_snackbar_alert.dart';
-import 'package:store_project/features/products/widgets/image_container.dart';
+import 'package:store_project/features/products/widgets/utils/custom_snackbar_alert.dart';
+import 'package:store_project/features/products/widgets/utils/image_container.dart';
 
 class ProductViewWidget extends StatelessWidget {
   final Product product;
