@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:store_project/features/products/widgets/custom_snackbar_alert.dart';
+import 'package:store_project/features/products/widgets/utils/custom_snackbar_alert.dart';
 
 class MainViewPaginator extends StatelessWidget {
   final int currentPage;
