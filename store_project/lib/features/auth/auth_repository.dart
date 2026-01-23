@@ -29,7 +29,7 @@ class AuthRepository {
         throw Exception(errorBody['error']['message'] ?? 'Error en registro');
       }
     } catch (e) {
-      throw Exception("Error de conexión");
+      throw Exception("Usuario y/o contraseña incorrectas");
     }
   }
 
