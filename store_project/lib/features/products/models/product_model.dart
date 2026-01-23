@@ -1,5 +1,6 @@
 class Product {
   final int id;
+  final String documenId;
   final String title;
   final double price;
   final String description;
@@ -8,6 +9,7 @@ class Product {
 
   Product({
     required this.id,
+    required this.documenId,
     required this.title,
     required this.price,
     required this.description,
@@ -17,12 +19,13 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
-      title: json['title'],
-      price: (json['price'] as num).toDouble(),
-      description: json['description'],
+      id: json['id'] ?? 0,
+      documenId: json['documentId'] ?? '',
+      title: json['title'] ?? '',
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      description: json['description'] ?? '',
       images: List<String>.from(json['images'] ?? []),
-      categoryId: json['category'] != null ? json['category']['id'] : 0,
+      categoryId: json['category'] != null ? json['category']['id'] ?? 0 : 0,
     );
   }
 
@@ -32,7 +35,7 @@ class Product {
       'price': price,
       'description': description,
       'images': images,
-      'categoryId': categoryId,
+      'category': categoryId,
     };
   }
 }
