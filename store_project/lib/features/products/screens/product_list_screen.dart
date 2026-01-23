@@ -4,8 +4,8 @@ import 'package:store_project/features/products/models/product_model.dart';
 import 'package:store_project/features/products/providers/cart_provider.dart';
 import 'package:store_project/features/products/repositories/product_repository.dart';
 import 'package:store_project/features/products/screens/shopping_cart_screen.dart';
-import 'package:store_project/features/products/widgets/cart_container.dart';
-import 'package:store_project/features/products/widgets/product_view_widget.dart';
+import 'package:store_project/features/products/widgets/cart/cart_container.dart';
+import 'package:store_project/features/products/widgets/product/product_view_widget.dart';
 import 'package:store_project/features/products/widgets/main_view_paginator.dart';
 
 class ProductListScreen extends StatefulWidget {

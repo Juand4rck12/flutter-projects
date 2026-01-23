@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:store_project/features/products/providers/login_form_provider.dart';
-import 'package:store_project/features/products/widgets/custom_snackbar_alert.dart';
+import 'package:store_project/features/auth/login_form_provider.dart';
 
 class AdminLoginScreen extends StatefulWidget {
   const AdminLoginScreen({super.key});
@@ -96,16 +95,21 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        if (!formProvider.validateForm(formKey)) return;
-                        formProvider.validateCredentials();
-                        if (formProvider.errorMessage != null) return;
-                        showCustomSnackBar(
-                          context,
-                          duration: const Duration(milliseconds: 600),
-                          message: "Acceso concedido!",
-                        );
-                      },
+                      onPressed: formProvider.isLoading
+                          ? null
+                          : () async {
+                              if (!formProvider.validateForm(formKey)) return;
+
+                              final user = formProvider.userController.text;
+                              final password =formProvider.passwordController.text;
+
+                              final successLogin = await formProvider
+                                  .validateLogin(user, password);
+
+                              if (!context.mounted) return;
+                              if (!successLogin) return;
+                              Navigator.pushNamed(context, "/create-product");
+                            },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 22.0,
