@@ -1,22 +1,18 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 import 'package:store_project/core/constants/api_constants.dart';
-import 'package:store_project/features/products/models/category_model.dart';
-import 'package:store_project/features/products/repositories/auth_repository.dart';
+import 'package:store_project/features/categories/models/category_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:store_project/features/services/auth_service.dart';
 
 class CategoryRepository {
-  final AuthRepository _authRepository = AuthRepository();
+  final AuthService _authService = AuthService();
 
   /// Obtener todas las categorias
   Future<List<Category>> getCategories() async {
-    final token = await _authRepository.getToken();
-
     final response = await http.get(
       Uri.parse(ApiConstants.categories),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      },
+      headers: _authService.getAuthHeaders(),
     );
 
     if (response.statusCode == 200) {
@@ -31,14 +27,9 @@ class CategoryRepository {
 
   /// Obtener categoría por Id
   Future<Category> getCategory(int id) async {
-    final token = await _authRepository.getToken();
-
     final response = await http.get(
       Uri.parse('${ApiConstants.categories}/$id'),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      },
+      headers: _authService.getAuthHeaders(),
     );
 
     if (response.statusCode == 200) {
@@ -51,14 +42,9 @@ class CategoryRepository {
 
   /// Crear categoría
   Future<Category> createCategory(Category category) async {
-    final token = await _authRepository.getToken();
-
     final response = await http.post(
       Uri.parse(ApiConstants.categories),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
+      headers: _authService.getAuthHeaders(),
       body: json.encode({'data': category.toJson()}),
     );
 
@@ -74,10 +60,7 @@ class CategoryRepository {
   Future<Category> updateCategory(int id, Category category) async {
     final response = await http.put(
       Uri.parse('${ApiConstants.categories}/$id'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${ApiConstants.bearerToken}',
-      },
+      headers: _authService.getAuthHeaders(),
       body: json.encode({'data': category.toJson()}),
     );
 
@@ -93,7 +76,7 @@ class CategoryRepository {
   Future<void> deleteCategory(int id) async {
     final response = await http.delete(
       Uri.parse('${ApiConstants.categories}/$id'),
-      headers: {'Authorization': 'Bearer ${ApiConstants.bearerToken}'},
+      headers: _authService.getAuthHeaders(),
     );
 
     if (response.statusCode != 200) {

@@ -4,6 +4,7 @@ import 'package:store_project/core/constants/api_constants.dart';
 import 'package:store_project/features/products/models/pagination_data.dart';
 import 'package:store_project/features/products/models/product_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:store_project/features/services/auth_service.dart';
 
 class ProductResponse {
   final List<Product> products;
@@ -13,11 +14,13 @@ class ProductResponse {
 }
 
 class ProductRepository {
+  final AuthService _authService = AuthService();
+
   /// Obtener todos los productos
   Future<List<Product>> getProducts() async {
     final response = await http.get(
       Uri.parse(ApiConstants.products),
-      headers: {'Authorization': 'Bearer ${ApiConstants.bearerToken}'},
+      headers: _authService.getAuthHeaders(),
     );
 
     if (response.statusCode == 200) {
@@ -37,14 +40,16 @@ class ProductRepository {
     );
     final response = await http.get(
       url,
-      headers: {'Authorization': 'Bearer ${ApiConstants.bearerToken}'},
+      headers: _authService.getAuthHeaders(),
     );
 
     if (response.statusCode == 200) {
-      final json = jsonDecode(response.body);
-      final List<dynamic> dataList = json['data'];
+      final jsonResponse = jsonDecode(response.body);
+      final List<dynamic> dataList = jsonResponse['data'];
       final products = dataList.map((item) => Product.fromJson(item)).toList();
-      final pagination = PaginationData.fromJson(json['meta']['pagination']);
+      final pagination = PaginationData.fromJson(
+        jsonResponse['meta']['pagination'],
+      );
       return ProductResponse(products, pagination);
     } else {
       throw Exception('Error al cargar productos');
@@ -55,7 +60,7 @@ class ProductRepository {
   Future<Product> getProduct(int id) async {
     final response = await http.get(
       Uri.parse('${ApiConstants.products}/$id'),
-      headers: {'Authorization': 'Bearer ${ApiConstants.bearerToken}'},
+      headers: _authService.getAuthHeaders(),
     );
 
     if (response.statusCode == 200) {
@@ -67,20 +72,19 @@ class ProductRepository {
   }
 
   /// Crear producto
-  Future<Product> creteProduct(Product product) async {
+  Future<Product> create(Product product) async {
     final response = await http.post(
       Uri.parse(ApiConstants.products),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${ApiConstants.bearerToken}',
-      },
-      body: json.encode(product.toJson()),
+      headers: _authService.getAuthHeaders(),
+      body: json.encode({"data": product.toJson()}),
     );
 
-    if (response.statusCode == 201) {
-      return Product.fromJson(json.decode(response.body));
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final productData = responseData['data'] ?? responseData;
+      return Product.fromJson(productData);
     } else {
-      throw Exception('Error al crear el producto');
+      throw Exception('Error al crear el producto: ${response.body}');
     }
   }
 
@@ -88,10 +92,7 @@ class ProductRepository {
   Future<Product> updateProduct(int id, Product product) async {
     final response = await http.put(
       Uri.parse('${ApiConstants.products}/$id'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${ApiConstants.bearerToken}',
-      },
+      headers: _authService.getAuthHeaders(),
       body: json.encode(product.toJson()),
     );
 
@@ -106,7 +107,7 @@ class ProductRepository {
   Future<void> deleteProduct(int id) async {
     final response = await http.delete(
       Uri.parse('${ApiConstants.products}/$id'),
-      headers: {'Authorization': 'Bearer ${ApiConstants.bearerToken}'},
+      headers: _authService.getAuthHeaders(),
     );
 
     if (response.statusCode != 200) {
