@@ -108,7 +108,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
 
                               if (!context.mounted) return;
                               if (!successLogin) return;
-                              Navigator.pushNamed(context, "/create-product");
+                              Navigator.pushReplacementNamed(context, "/create-product");
                             },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(

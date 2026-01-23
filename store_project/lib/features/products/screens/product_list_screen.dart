@@ -6,7 +6,7 @@ import 'package:store_project/features/products/repositories/product_repository.
 import 'package:store_project/features/products/screens/shopping_cart_screen.dart';
 import 'package:store_project/features/products/widgets/cart/cart_container.dart';
 import 'package:store_project/features/products/widgets/product/product_view_widget.dart';
-import 'package:store_project/features/products/widgets/main_view_paginator.dart';
+import 'package:store_project/features/products/widgets/utils/main_view_paginator.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});

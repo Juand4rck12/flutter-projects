@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store_project/features/categories/models/category_model.dart';
 import 'package:store_project/features/products/providers/create_product_provider.dart';
-import 'package:store_project/features/products/repositories/category_repository.dart';
+import 'package:store_project/features/categories/repositories/category_repository.dart';
 
 class CreateProductScreen extends StatefulWidget {
   const CreateProductScreen({super.key});
@@ -280,26 +280,26 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             int.parse(_selectedCategoryId!),
                           );
 
-                          if (result && mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Producto creado exitosamente'),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
-                            setState(() {
-                              _selectedCategoryId = null;
-                            });
-                          } else if (mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Error al crear el producto. Revisa la consola.',
+                          setState(() {
+                            if (result && mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Producto creado exitosamente'),
+                                  backgroundColor: Colors.green,
                                 ),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          }
+                              );
+                              _selectedCategoryId = null;
+                            } else if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Error al crear el producto. Revisa la consola.',
+                                  ),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          });
                         },
                         label: const Text(
                           "Guardar producto",
